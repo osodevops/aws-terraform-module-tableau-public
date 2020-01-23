@@ -3,6 +3,17 @@ We publish the documentation publicly so it turns up in online searches, but to 
 If you're already purchased this module, please refer to the full deployment guide at: <https://github.com/osodevops/aws-terraform-module-tableau/deployment_guide.md>.
 If you're interested in using our re-usable Tableau deployment, contact us at <enquiries@osodevops.io> or <https://osodevops.io/> for more information.
 
+
+## Features
+* Deploy HA Green / Blue Tableau server.
+* Automatic backup and restore from S3.
+* Multi-dimensional scaling, allowing you to separately scale data and UI management nodes.
+* Auto healing architecture.
+* Automatic bootstrapping of custom AMI with user-data.
+* Ability to customised install with Packer builder.
+* Web console UI
+* Admin console UI
+
 ## License
 
 This code is released under the Apache 2.0 License. Please see 

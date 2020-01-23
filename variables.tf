@@ -1,5 +1,9 @@
-variable "allowed_ips" {}
+variable "allowed_ips" {
+  type = list(string)
+}
+
 variable "restricted_ips" {
+  description = ""
   type = "list"
   default = []
 }
@@ -8,12 +12,15 @@ variable "ami_owner_account" {
   type = string
   default = ""
 }
+
 variable "ami_encrypted" {
   description = "Searching for encrypted AMI's only. Default is false."
   type = bool
   default = false
 }
+
 variable "alb_ssl_policy" {
+  description = "Use of AWS latest TLS policies is best practice. The recommended predefined security policies are: ELBSecurityPolicy-2016-08, ELBSecurityPolicy-FS-2018-06, ELBSecurityPolicy-TLS-1-1-2017-01, ELBSecurityPolicy-TLS-1-2-2017-01 and ELBSecurityPolicy-TLS-1-2-Ext-2018-06."
   type = string
   default = "ELBSecurityPolicy-TLS-1-2-Ext-2018-06"
 }
@@ -37,8 +44,14 @@ variable "admin_listener_protocol" {
 variable "environment" {
   type = string
 }
-variable "root_disk_size" { default = "100"}
-variable "instance_type" { default = "m5.2xlarge" }
+variable "root_disk_size" {
+  default = "100"
+}
+
+variable "instance_type" {
+  type = string
+  default = "m5.2xlarge"
+}
 
 variable "ssh_key_name" {
   description = "The name of an EC2 Key Pair that can be used to SSH to the EC2 Instances in this cluster. Set to null to not associate a Key Pair."
@@ -46,13 +59,13 @@ variable "ssh_key_name" {
   default     = null
 }
 
-variable "encrypt_data" { default = true}
 variable "common_tags" {
   type = "map"
 }
 
 variable "alb_certificate_arn" {
-  description = "The certificate_arn is the ARN of an ACM or IAM TLS cert to use on this listener)"
+  description = "The certificate_arn is the ARN of an ACM or IAM TLS cert to use on this listener"
+  type = string
 }
 
 variable "ui_target_group_port" {
