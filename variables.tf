@@ -1,4 +1,5 @@
 variable "allowed_ips" {
+  description = ""
   type = list(string)
 }
 
@@ -153,26 +154,28 @@ variable "asg_desired_capacity" {
 }
 
 variable "licences_key_1" {
-  type = "string"
+  type = string
   default = ""
 }
 
 variable "licences_key_2" {
-  type = "string"
+  type = string
   default = ""
 }
 
 variable "licences_key_3" {
-  type = "string"
+  type = string
   default = ""
 }
 
 variable "admin_password" {
-  type = "string"
+  description = "Web UI admin password of the default user. Must be 8 alphanumeric 8 characters."
+  type = string
 }
 
 variable "server_password" {
-  type = "string"
+  description = "The tableau user is created on the Linux operating system by defualt, you can set the password here. To use the TSM you will need to switch to this user. Must be 8 alphanumeric 8 characters."
+  type = string
 }
 
 locals {
@@ -181,6 +184,8 @@ locals {
   ami_name = var.ami_encrypted ? "ENC-TABLEAU-*" : "TABLEAU-*"
   ami_owner = var.ami_owner_account != "" ? var.ami_owner_account : data.aws_caller_identity.current.account_id
   parameter_prefix = "/${var.environment}/${var.suffix}"
+
+  # TABLEAU LICENCE KEYS. Stored in SSM Parameter but is ignored if value is empty.
   licences_1_param = [{
     name = "${local.parameter_prefix}/tableau/licences/1"
     type = "SecureString"
@@ -218,23 +223,6 @@ locals {
     type = "SecureString"
     value = var.server_password
     description = "Tableau cmd server password"
-    overwrite = false
-  }]
-
-  # DO NOT CHANGE
-  admin_username_param = [{
-    name = "${local.parameter_prefix}/tableau/users/admin_username"
-    type = "SecureString"
-    value = "tab_admin"
-    description = "Tableau web admin username"
-    overwrite = false
-  }]
-
-  server_username_param = [{
-    name = "${local.parameter_prefix}/tableau/users/server_username"
-    type = "SecureString"
-    value = "tableau_srv"
-    description = "Tableau cmd server username"
     overwrite = false
   }]
 }
