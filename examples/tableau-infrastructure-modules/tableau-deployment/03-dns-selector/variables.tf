@@ -1,4 +1,30 @@
-#**Note**: This public repo contains the documentation for the private GitHub repo <https://github.com/osodevops/aws-terraform-module-tableau>.
-#We publish the documentation publicly so it turns up in online searches, but to see the source code, you must be a purchase the module.
-#If you're already purchased this module, please refer to the full deployment guide at: <https://github.com/osodevops/aws-terraform-module-tableau/deployment_guide.md>.
-#If you're interested in using our re-usable Tableau deployment, contact us at <enquiries@osodevops.io> or <https://osodevops.io/> for more information.
+variable aws_region {
+  description = "The region where you are deploying Tableau"
+  type        = string
+}
+
+variable common_tags {
+  description = "Map of tags that will be applied to all infrastructure created by the Tableau module"
+  type        = map(string)
+  default     = {}
+}
+
+variable environment {
+  description = "Name of the environment we are deploying Tableau into. e.g. 'stage'"
+  type        = string
+}
+
+variable suffix {
+  description = "The suffix is used to decide which environment to deploy, please choose between `green` or `blue`"
+  default     = "green"
+}
+
+variable "public_dns_zone" {
+  type    = string
+  default = ""
+}
+
+variable "assume_role" {
+  description = "Name of role in peer account to assume"
+  default     = "Terraforming-Local-Admin"
+}

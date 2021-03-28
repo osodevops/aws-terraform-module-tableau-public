@@ -1,4 +1,19 @@
-#**Note**: This public repo contains the documentation for the private GitHub repo <https://github.com/osodevops/aws-terraform-module-tableau>.
-#We publish the documentation publicly so it turns up in online searches, but to see the source code, you must be a purchase the module.
-#If you're already purchased this module, please refer to the full deployment guide at: <https://github.com/osodevops/aws-terraform-module-tableau/deployment_guide.md>.
-#If you're interested in using our re-usable Tableau deployment, contact us at <enquiries@osodevops.io> or <https://osodevops.io/> for more information.
+module "tableau_server" {
+  source                  = "git::ssh://git@github.com/osodevops/aws-terraform-module-tableau.git//modules/tableau-standalone"
+  admin_password          = var.admin_password
+  server_password         = var.server_password
+  licences_key_1          = var.licences_key_1
+  alb_allowed_ips         = var.alb_allowed_ips
+  instance_allowed_ips    = var.instance_allowed_ips
+  common_tags             = var.common_tags
+  environment             = var.environment
+  ssh_key_name            = var.ssh_key_name
+  alb_certificate_arn     = var.alb_certificate_arn
+  alb_deletion_protection = var.alb_deletion_protection
+  instance_type           = var.instance_type
+  suffix                  = var.suffix
+  force_destroy           = var.force_destroy
+  root_disk_size          = var.root_disk_size
+  data_volume_size        = var.data_volume_size
+  vpc_name                = var.vpc_name
+}
