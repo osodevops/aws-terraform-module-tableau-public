@@ -11,7 +11,7 @@
 
 suffix = "green"
 data_volume_size = "100"
-root_disk_size = "100"
+root_disk_size = "150"
 instance_type = "m5.4xlarge"
 common_tags = {
   Application = "Tableau Server"
