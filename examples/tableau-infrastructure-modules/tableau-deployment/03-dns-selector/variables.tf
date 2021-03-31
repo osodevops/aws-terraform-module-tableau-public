@@ -19,12 +19,13 @@ variable suffix {
   default     = "green"
 }
 
-variable "public_dns_zone" {
+variable "dns_zone" {
   type    = string
   default = ""
 }
 
-variable "assume_role" {
-  description = "Name of role in peer account to assume"
-  default     = "Terraforming-Local-Admin"
+variable "is_private_zone" {
+  description = "Specify if your hosted zone is public or private"
+  type        = string
+  default     = false
 }

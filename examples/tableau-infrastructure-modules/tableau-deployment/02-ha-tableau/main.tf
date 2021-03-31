@@ -16,4 +16,5 @@ module "tableau_server" {
   root_disk_size          = var.root_disk_size
   data_volume_size        = var.data_volume_size
   vpc_name                = var.vpc_name
+  alb_internal            = var.alb_internal
 }

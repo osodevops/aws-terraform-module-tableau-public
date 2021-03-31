@@ -93,3 +93,9 @@ variable vpc_name {
   description = "Name of the VPC we will deploy into"
   type        = string
 }
+
+variable alb_internal {
+  description = "Force load-balancers to be internal"
+  type        = string
+  default     = false
+}
