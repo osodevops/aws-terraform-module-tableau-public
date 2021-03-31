@@ -11,3 +11,4 @@ common_tags = {
 
 # Select "blue" or "green" to flip the DNS to the appropriate Tableau installation
 suffix = "blue"
+is_private_zone = false
