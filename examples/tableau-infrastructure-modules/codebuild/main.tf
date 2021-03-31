@@ -1,4 +1,14 @@
-#**Note**: This public repo contains the documentation for the private GitHub repo <https://github.com/osodevops/aws-terraform-module-tableau>.
-#We publish the documentation publicly so it turns up in online searches, but to see the source code, you must be a purchase the module.
-#If you're already purchased this module, please refer to the full deployment guide at: <https://github.com/osodevops/aws-terraform-module-tableau/deployment_guide.md>.
-#If you're interested in using our re-usable Tableau deployment, contact us at <enquiries@osodevops.io> or <https://osodevops.io/> for more information.
+module "codebuilder" {
+  source                       = "git::ssh://git@github.com/osodevops/aws-terraform-module-codebuild-packer.git"
+  codebuild_private_subnet_ids = data.aws_subnet_ids.codebuild_private_subnets.ids
+  common_tags                  = var.common_tags
+  environment                  = var.environment
+  encrypt_ami                  = var.encrypt_ami
+  github_token                 = var.github_token
+  packer_file_location         = var.packer_file_location
+  packer_vars_file_location    = var.packer_vars_file_location
+  packer_build_subnet_ids      = data.aws_subnet_ids.packer_build_subnets.ids
+  project_name                 = var.project_name
+  source_repository_url        = var.source_repository_url
+  vpc_id                       = data.aws_vpc.packer_build_vpc.id
+}
