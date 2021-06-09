@@ -1,4 +1,4 @@
-module "tableau_vpc" {
+module "tableau" {
   source                              = "git::ssh://git@github.com/osodevops/aws-terraform-module-tableau-vpc.git"
   account_name                        = var.account_name
   region                              = var.region
@@ -11,4 +11,6 @@ module "tableau_vpc" {
   vpc_endpoint_ec2_enabled            = var.vpc_endpoint_ec2_enabled
   vpc_endpoint_s3_enabled             = var.vpc_endpoint_s3_enabled
   vpc_endpoint_ssm_enabled            = var.vpc_endpoint_ssm_enabled
+  vpc_endpoint_dynamodb_enabled       = var.vpc_endpoint_dynamodb_enabled
+  internal_dns_zone                   = var.internal_dns_zone
 }

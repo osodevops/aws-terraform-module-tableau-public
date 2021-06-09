@@ -3,6 +3,11 @@ variable "account_name" {
   type        = string
 }
 
+variable "internal_dns_zone" {
+  description = "Domain to be used for internal DNS"
+  type        = string
+}
+
 variable "region" {
   description = "Region where we are creating the VPC"
   type        = string
@@ -55,6 +60,12 @@ variable "vpc_endpoint_s3_enabled" {
 
 variable "vpc_endpoint_ssm_enabled" {
   description = "Boolean to turn on/off ssm endpoint"
+  type        = number
+  default     = 0
+}
+
+variable "vpc_endpoint_dynamodb_enabled" {
+  description = "Boolean to turn on/off dynamodb endpoint"
   type        = number
   default     = 0
 }
