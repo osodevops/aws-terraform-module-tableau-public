@@ -1,18 +1,3 @@
-variable admin_password {
-  description = "Admin password to be set on the Tableau installation"
-  type        = string
-}
-
-variable server_password {
-  description = "Password for access to the Tableau instances"
-  type        = string
-}
-
-variable licences_key_1 {
-  description = "License key for your Tableau installation"
-  type        = string
-}
-
 variable alb_allowed_ips {
   description = "List of external IPs that will be allowed access to the Tableau ALB"
   type        = list(string)
@@ -59,10 +44,10 @@ variable instance_allowed_ips {
   default     = []
 }
 
-variable suffix {
-  description = "Name of the deployment type: green or blue"
-  type        = string
-  default     = ""
+variable "deployment" {
+  description = "In the case of multiple standalone deploymentsin the same VPC, we name each one"
+  type = string
+  default = ""
 }
 
 variable force_destroy {
@@ -98,4 +83,21 @@ variable alb_internal {
   description = "Force load-balancers to be internal"
   type        = string
   default     = false
+}
+
+variable account_alias {
+  type = string
+}
+
+variable is_private_zone {
+  type = bool
+}
+
+variable dns_zone {
+  type = string
+}
+
+variable "asg_desired_capacity" {
+  type    = number
+  default = 1
 }

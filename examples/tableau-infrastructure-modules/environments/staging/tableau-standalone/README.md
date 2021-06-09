@@ -1,5 +1,5 @@
 # Using tableau-cluster
-The following files must be modified in order to use the Tableau module
+The following files must be modified in each deployment directory in order to use the Tableau module
 - backend.hcl
 - terraform.tfvars
 
@@ -91,11 +91,6 @@ e.g. `alb_internal = true`
 Specify the number of instances in the cluster to create. Must be less or equal to `asg_max_size`
 
 e.g. `asg_desired_capacity = 3`
-
-### asg_max_size
-Specify the maximum size of the cluster ASG
-
-e.g. `asg_max_size = 3
 `
 ### common_tags
 Specify a map of tags to apply to all resources created by the module
@@ -105,6 +100,7 @@ e.g.
 common_tags = {
     Application = "Tableau Server"
     CostCode = "Tableau"
+    Deployment = "Blue"
     Tool = "Terraform"
     Alarms = "true"
 }
@@ -125,44 +121,6 @@ Specify the size of the instance root disk. This should be a minimum of 150G
 
 e.g. `root_disk_size = "150"`
 
-### enable_lambdas
-Specify whether to automatically execute the configuration or termination lambdas. By default the termination lambda executes when an instance termination event occurs. The configuration lambda executes every 5 minutes.
-
-e.g. `enable_lambdas = true`
-
-### create_lambdas
-Specify whether to create cluster lambdas. This is not desirable when first spinning up a cluster since a lambda artefact may not exist.
-
-In this case, set this parameter to false until the artefact is available
-
-e.g. `create_lambdas = true`
-
-### manage_new_nodes
-Specify whether the configuration lambda should configure new nodes. This is a feature-flag.
-
-e.g. `manage_new_nodes = true`
-
-### manage_terminations
-Specify whether the configuration lambda should manage node terminations. This is a feature-flag.
-
-e.g. `manage_terminations = true`
-
-### manage_zookeeper
-Specify whether the configuration lambda should manage zookeeper sizing and health. This is a feature-flag.
-
-e.g. `manage_zookeeper = true`
-
-### manage_replicas
-Specify whether the configuration lambda should manage pgsql replicas. This is a feature-flag.
-
-e.g. `manage_replicas = true`
-
-### maximum_zookeeper_size
-Specify a limit on the maximum size of the zookeeper ensemble.
-
-e.g. `maximum_zookeeper_size = 3`
-
-
 # Setting Terraform version
 If you require a specific terraform version, edit the following files and fields
 - `terraform.tf`: edit the field `required_version`
@@ -171,10 +129,12 @@ If you require a specific terraform version, edit the following files and fields
 The module currently supports a minimum of Terraform version `0.12.28`
 
 # Executing terraform
-This is an example of executing the terraform code.
+This is an example of executing the terraform code for the blue deployment.
+
+For green, repeat the process in the green directory.
 
 ```shell
-> cd tableau-cluster
-> terraform init -backend-config=backend.hcl
-> terraform apply
+> cd tableau-standalone/blue
+> terraform init -backend-config=backend.hcl ../
+> terraform apply ../
 ```

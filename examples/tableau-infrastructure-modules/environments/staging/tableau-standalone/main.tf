@@ -1,8 +1,6 @@
 module "tableau_server" {
+  // source                  = "/home/asing/Client/OSO/aws-terraform-module-tableau//modules/tableau-standalone"
   source                  = "git::ssh://git@github.com/osodevops/aws-terraform-module-tableau.git//modules/tableau-standalone"
-  admin_password          = var.admin_password
-  server_password         = var.server_password
-  licences_key_1          = var.licences_key_1
   alb_allowed_ips         = var.alb_allowed_ips
   instance_allowed_ips    = var.instance_allowed_ips
   common_tags             = var.common_tags
@@ -11,10 +9,15 @@ module "tableau_server" {
   alb_certificate_arn     = var.alb_certificate_arn
   alb_deletion_protection = var.alb_deletion_protection
   instance_type           = var.instance_type
-  suffix                  = var.suffix
   force_destroy           = var.force_destroy
   root_disk_size          = var.root_disk_size
   data_volume_size        = var.data_volume_size
   vpc_name                = var.vpc_name
   alb_internal            = var.alb_internal
+  aws_region              = var.aws_region
+  account_alias           = var.account_alias
+  dns_zone                = var.dns_zone
+  is_private_zone         = var.is_private_zone
+  asg_desired_capacity    = var.asg_desired_capacity
+  deployment              = var.deployment
 }
