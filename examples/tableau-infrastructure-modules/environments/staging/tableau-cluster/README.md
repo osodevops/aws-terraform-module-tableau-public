@@ -1,4 +1,6 @@
 # Using tableau-cluster
+This module will create a tableau-cluster in your VPC
+
 The following files must be modified in order to use the Tableau module
 - backend.hcl
 - terraform.tfvars

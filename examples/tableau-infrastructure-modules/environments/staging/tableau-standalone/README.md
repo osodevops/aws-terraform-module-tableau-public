@@ -1,4 +1,6 @@
-# Using tableau-cluster
+# Using tableau-standalone
+This module creates a single or blue-green Tableau cluster, depending on how you structure the project. This example shows a blue/green deployment
+
 The following files must be modified in each deployment directory in order to use the Tableau module
 - backend.hcl
 - terraform.tfvars
@@ -122,7 +124,7 @@ Specify the size of the instance root disk. This should be a minimum of 150G
 e.g. `root_disk_size = "150"`
 
 # Setting Terraform version
-If you require a specific terraform version, edit the following files and fields
+If you require a specific terraform version, edit the following files and fields in each deployment directory
 - `terraform.tf`: edit the field `required_version`
 - `.terraform-verion`: Replace the version number
 

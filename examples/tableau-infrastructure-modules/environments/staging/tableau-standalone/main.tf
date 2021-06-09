@@ -1,5 +1,4 @@
 module "tableau_server" {
-  // source                  = "/home/asing/Client/OSO/aws-terraform-module-tableau//modules/tableau-standalone"
   source                  = "git::ssh://git@github.com/osodevops/aws-terraform-module-tableau.git//modules/tableau-standalone"
   alb_allowed_ips         = var.alb_allowed_ips
   instance_allowed_ips    = var.instance_allowed_ips
