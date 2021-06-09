@@ -1,13 +1,13 @@
+variable "account_alias" {
+  description = "Name of the account"
+  type        = string
+}
 variable "aws_region" {
   description = "The AWS region in which all resources will be created"
   type        = "string"
 }
 variable "environment" {
   description = "Single prefix of account, examples: M"
-  type        = "string"
-}
-variable "github_token" {
-  description = "GitHub Personal Access Token, used to connect to source repository."
   type        = "string"
 }
 variable "encrypt_ami" {
@@ -28,7 +28,7 @@ variable "packer_vars_file_location" {
   type        = "string"
 }
 variable "project_name" {
-  description = "Name of the CodeBuild Project"
+  description = "Name to give the CodeBuild Project"
   type        = "string"
 }
 variable "source_repository_url" {
@@ -50,4 +50,8 @@ variable "packer_subnet_class_filter" {
   description = "Used to filter by 'Class' tag for the subnets we will be building in"
   type        = "string"
   default     = "tableau-build"
+}
+
+locals {
+  s3_codebuild_storage_name = "${var.account_alias}-${var.aws_region}-tableau-codebuild-resources"
 }

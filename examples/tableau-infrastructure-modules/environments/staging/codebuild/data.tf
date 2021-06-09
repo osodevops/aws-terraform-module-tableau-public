@@ -20,3 +20,7 @@ data "aws_vpc" "packer_build_vpc" {
     values = [var.vpc_class_filter]
   }
 }
+
+data "aws_ssm_parameter" "github_oauth_token" {
+  name = "/${var.environment}/codebuild/github_personal_access_token"
+}
