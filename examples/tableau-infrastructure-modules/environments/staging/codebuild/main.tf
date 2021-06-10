@@ -1,5 +1,5 @@
 module "codebuilder" {
-  source           = "git::ssh://git@github.com/osodevops/aws-terraform-module-codebuild-packer.git"
+  source                       = "git::ssh://git@github.com/osodevops/aws-terraform-module-codebuild-packer.git"
   codebuild_private_subnet_ids = data.aws_subnet_ids.codebuild_private_subnets.ids
   common_tags                  = var.common_tags
   environment                  = var.environment

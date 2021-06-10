@@ -1,5 +1,5 @@
 # Account
-aws_region  = "<YOUR REGION HERE>"
+aws_region = "<YOUR REGION HERE>"
 common_tags = {
   Application = "Tableau-Server"
   CostCode    = "Tableau"

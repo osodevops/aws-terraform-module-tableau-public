@@ -97,6 +97,11 @@ variable dns_zone {
   type = string
 }
 
+variable dns_name {
+  type    = string
+  default = "tableau"
+}
+
 variable "asg_max_size" {
   type    = number
   default = 1
@@ -121,8 +126,8 @@ variable "create_lambdas" {
 
 variable "maximum_zookeeper_size" {
   description = "Limit the maximum size of the zookeeper cluster"
-  type = number
-  default = 3
+  type        = number
+  default     = 3
 }
 
 variable "manage_zookeeper" {

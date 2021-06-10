@@ -1,5 +1,5 @@
 module "tableau_server" {
-  source = "git::ssh://git@github.com/osodevops/aws-terraform-module-tableau.git//modules/tableau-cluster"
+  source                  = "git::ssh://git@github.com/osodevops/aws-terraform-module-tableau.git//modules/tableau-cluster"
   alb_allowed_ips         = var.alb_allowed_ips
   instance_allowed_ips    = var.instance_allowed_ips
   common_tags             = var.common_tags

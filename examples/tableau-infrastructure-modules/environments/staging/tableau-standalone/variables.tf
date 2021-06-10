@@ -46,8 +46,8 @@ variable instance_allowed_ips {
 
 variable "deployment" {
   description = "In the case of multiple standalone deploymentsin the same VPC, we name each one"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 
 variable force_destroy {

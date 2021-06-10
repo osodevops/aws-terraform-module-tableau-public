@@ -1,7 +1,7 @@
 # Account
 account_alias = "<AN ALIAS FOR YOUR ACCOUNT HERE>"
 aws_region    = "<YOUR REGION>"
-common_tags   = {
+common_tags = {
   Application  = "CodeBuild"
   CostCode     = "Tableau"
   Tool         = "Terraform"

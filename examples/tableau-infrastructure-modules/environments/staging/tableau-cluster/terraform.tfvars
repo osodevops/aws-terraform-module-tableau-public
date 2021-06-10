@@ -7,8 +7,9 @@ vpc_name             = "<YOUR VPC NAME>"
 environment          = "<YOUR ENVIRONMENT NAME HERE>"
 
 # DNS configuration
-dns_zone             = "test.osodevops.io"
-is_private_zone      = false
+dns_zone        = "test.osodevops.io"
+dns_name        = "tableau"
+is_private_zone = false
 
 # ALB configuration
 alb_allowed_ips     = ["<CIDR BLOCKS ALLOWED ACCESS TO TABLEAU ALB>",]
