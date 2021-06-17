@@ -1,6 +1,6 @@
 # Account and VPC configuration
-account_alias = "<FRIENDLY NAME FOR YOUR AWS ACCOUNT>"
-aws_region    = "<YOUR REGION>"
+account_alias = "<FRIENDLY_NAME_FOR_THIS_ACCOUNT>"
+aws_region    = "<YOUR_REGION>"
 common_tags = {
   Application = "Tableau Server"
   CostCode    = "Tableau"
@@ -8,18 +8,18 @@ common_tags = {
   Alarms      = "true"
   Deployment  = "Blue"
 }
-instance_allowed_ips = ["<CIDR BLOCKS ALLOWED ACCESS TO TABLEAU INSTANCES>", ]
-ssh_key_name         = "<YOUR SSH KEY-PAIR NAME>"
-vpc_name             = "<YOUR VPC NAME>"
-environment          = "<YOUR ENVIRONMENT NAME HERE>"
+instance_allowed_ips = ["<YOUR_CIDR_BLOCKS_ALLOWED_TO_TABLEAU_INSTANCES>"]
+ssh_key_name         = "<YOUR_SSH_KEY_PAIR_NAME>"
+vpc_name             = "<YOUR_VPC_NAME>"
+environment          = "<YOUR_ENVIRONMENT_NAME>"
 
 # DNS configuration
-dns_zone        = "<YOUR DOMAIN HERE>"
-is_private_zone = false
+dns_zone        = "<YOUR_DNS_ZONE>"
+is_private_zone = "<IS_YOUR_DNS_ZONE_PRIVATE>"
 
 # ALB configuration
-alb_allowed_ips     = ["<CIDR BLOCKS ALLOWED ACCESS TO TABLEAU ALB>", ]
-alb_certificate_arn = "<YOUR ACM CERTIFICATE ARN>"
+alb_allowed_ips     = ["<YOUR_CIDR_BLOCKS_ALLOWED_TO_LOAD_BALANCER>"]
+alb_certificate_arn = "<YOUR_ACM_CERTIFICATE_ARN>"
 alb_internal        = true
 
 # ASG configuration

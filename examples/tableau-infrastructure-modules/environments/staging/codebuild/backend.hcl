@@ -1,6 +1,5 @@
-# bucket = "<YOUR BUCKET FOR ENVIRONMENT>"
-# dynamodb_table = "<YOUR DYNAMODB TABLE FOR LOCKING>"
-# region = "<YOUR REGION>"
-
-key = "tableau-codebuilder/terraform.tfstate"
+bucket = "<YOUR_TERRAFORM_STATE_BUCKET>"
+dynamodb_table = "<YOUR_DYNAMODB_TABLE_FOR_LOCKING>"
 encrypt = true
+key = "tableau-codebuilder/terraform.tfstate"
+region = "<YOUR REGION>"

@@ -1,15 +1,15 @@
 # Account and VPC
-account_name = "<YOUR ACCOUNT NAME HERE>"
-cidr         = "<YOUR VPC CIDR BLOCK HERE. e.g. 10.19.0.0/16>"
+account_name = "<FRIENDLY_NAME_FOR_THIS_ACCOUNT>"
+cidr         = "<YOUR_VPC_CIDR_BLOCK>"
 common_tags = {
   Application = "Tableau Server"
   CostCode    = "Tableau"
   Tool        = "Terraform"
   Function    = "Tableau VPC"
 }
-environment       = "<YOUR ENVIRONMENT NAME HERE>"
-internal_dns_zone = "<INTERNAL DNS ZONE>"
-region            = "<YOUR REGION HERE>"
+environment       = "<YOUR_ENVIRONMENT_NAME>"
+internal_dns_zone = "<YOUR_INTERNAL_DNS_ZONE>"
+region            = "<YOUR_REGION>"
 zone = [
   "eu-west-1a",
   "eu-west-1b",
