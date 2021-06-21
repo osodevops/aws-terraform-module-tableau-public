@@ -26,4 +26,5 @@ module "tableau_server" {
   manage_new_nodes        = var.manage_new_nodes
   manage_terminations     = var.manage_terminations
   manage_replicas         = var.manage_replicas
+  cluster_definition      = jsondecode(file("${path.module}/cluster_definition.json"))
 }
