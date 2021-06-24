@@ -16,17 +16,12 @@ alb_certificate_arn = "<YOUR_ACM_CERTIFICATE_ARN>"
 alb_internal        = true
 
 # ASG configuration
-asg_desired_capacity = 3
-asg_max_size         = 3
 common_tags = {
   Application = "Tableau Server"
   CostCode    = "Tableau"
   Tool        = "Terraform"
   Alarms      = "true"
 }
-data_volume_size = "100"
-instance_type    = "m5.4xlarge"
-root_disk_size   = "150"
 
 # Lambda configuration
 enable_lambdas         = true

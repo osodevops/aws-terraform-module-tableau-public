@@ -32,12 +32,6 @@ variable alb_deletion_protection {
   default     = false
 }
 
-variable instance_type {
-  description = "Instance type used for the Tableau servers"
-  type        = string
-  default     = "m5.4xlarge"
-}
-
 variable instance_allowed_ips {
   description = "List of customer internal IPs allowed to access the Tableau instances"
   type        = list(string)
@@ -54,18 +48,6 @@ variable force_destroy {
   description = "Boolean that will delete all data from the S3 buckets used as part of the Tableau cluster. This is for teardown only"
   type        = bool
   default     = false
-}
-
-variable root_disk_size {
-  description = "Size of the Tableau root partition in GB"
-  type        = string
-  default     = "100"
-}
-
-variable data_volume_size {
-  description = "Size of the Tableau EBS data volume in GB"
-  type        = string
-  default     = "100"
 }
 
 variable aws_region {
@@ -100,16 +82,6 @@ variable dns_zone {
 variable dns_name {
   type    = string
   default = "tableau"
-}
-
-variable "asg_max_size" {
-  type    = number
-  default = 1
-}
-
-variable "asg_desired_capacity" {
-  type    = number
-  default = 1
 }
 
 variable "enable_lambdas" {
