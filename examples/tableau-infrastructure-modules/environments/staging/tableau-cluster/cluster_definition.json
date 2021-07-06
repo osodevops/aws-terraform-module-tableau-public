@@ -1,0 +1,69 @@
+{
+  "vizql": {
+    "services": {
+      "clientfileservice": 1,
+      "gateway": 1,
+      "vizqlserver": 2,
+      "vizportal": 2,
+      "backgrounder": 2,
+      "cacheserver": 2,
+      "searchserver": 1,
+      "dataserver": 2,
+      "filestore": 1
+    },
+    "options": {
+      "replica_allowed": true,
+      "zookeeper_allowed": true,
+      "initial_allowed": true
+    },
+    "configuration": {
+      "instance_type": "m5.2xlarge",
+      "root_disk_size": 150,
+      "data_volume_size": 100,
+      "asg_desired_capacity": 3,
+      "asg_max_size": 3
+    }
+  },
+  "backgrounder": {
+    "services": {
+      "clientfileservice": 1,
+      "gateway": 1,
+      "vizqlserver": 2,
+      "vizportal": 2,
+      "backgrounder": 3
+    },
+    "options": {
+      "replica_allowed": false,
+      "zookeeper_allowed": false,
+      "initial_allowed": false
+    },
+    "configuration": {
+      "instance_type": "m5.2xlarge",
+      "root_disk_size": 150,
+      "data_volume_size": 150,
+      "asg_desired_capacity": 2,
+      "asg_max_size": 2
+    }
+  },
+  "gateway": {
+    "services": {
+      "clientfileservice": 1,
+      "gateway": 1,
+      "vizqlserver": 2,
+      "vizportal": 2,
+      "filestore": 1
+    },
+    "options": {
+      "replica_allowed": true,
+      "zookeeper_allowed": false,
+      "initial_allowed": false
+    },
+    "configuration": {
+      "instance_type": "m5.2xlarge",
+      "root_disk_size": 150,
+      "data_volume_size": 100,
+      "asg_desired_capacity": 1,
+      "asg_max_size": 1
+    }
+  }
+}

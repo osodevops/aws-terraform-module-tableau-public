@@ -32,6 +32,12 @@ variable "alb_deletion_protection" {
   default     = false
 }
 
+variable "instance_type" {
+  description = "Instance type used for the Tableau servers"
+  type        = string
+  default     = "m5.4xlarge"
+}
+
 variable "instance_allowed_ips" {
   description = "List of customer internal IPs allowed to access the Tableau instances"
   type        = list(string)
@@ -39,7 +45,7 @@ variable "instance_allowed_ips" {
 }
 
 variable "deployment" {
-  description = "Name of the deployment type: green or blue"
+  description = "In the case of multiple standalone deploymentsin the same VPC, we name each one"
   type        = string
   default     = ""
 }
@@ -48,6 +54,18 @@ variable "force_destroy" {
   description = "Boolean that will delete all data from the S3 buckets used as part of the Tableau cluster. This is for teardown only"
   type        = bool
   default     = false
+}
+
+variable "root_disk_size" {
+  description = "Size of the Tableau root partition in GB"
+  type        = string
+  default     = "100"
+}
+
+variable "data_volume_size" {
+  description = "Size of the Tableau EBS data volume in GB"
+  type        = string
+  default     = "100"
 }
 
 variable "aws_region" {
@@ -79,49 +97,7 @@ variable "dns_zone" {
   type = string
 }
 
-variable "dns_name" {
-  type    = string
-  default = "tableau"
-}
-
-variable "enable_lambdas" {
-  description = "Boolean to turn on/off automatic execution of lambdas"
-  type        = bool
-  default     = true
-}
-
-variable "create_lambdas" {
-  description = "Boolean to turn on/off creation of lambdas"
-  type        = bool
-  default     = true
-}
-
-variable "maximum_zookeeper_size" {
-  description = "Limit the maximum size of the zookeeper cluster"
-  type        = number
-  default     = 3
-}
-
-variable "manage_zookeeper" {
-  description = "Allow the configurator lambda to manage zookeeper"
-  type        = bool
-  default     = true
-}
-
-variable "manage_new_nodes" {
-  description = "Allow the configurator lambda to manage new cluster nodes"
-  type        = bool
-  default     = true
-}
-
-variable "manage_terminations" {
-  description = "Allow the configurator lambda to manage node terminations"
-  type        = bool
-  default     = true
-}
-
-variable "manage_replicas" {
-  description = "Allow the configurator lambda to manage repo-replica placement"
-  type        = bool
-  default     = true
+variable "asg_desired_capacity" {
+  type    = number
+  default = 1
 }
