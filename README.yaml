@@ -5,40 +5,41 @@
 #
 
 # Name of this project
-name: ""
+name: "Tableau Automated Deployment on AWS using Terraform"
 
 # Short description of this project
 description: |-
-  Add here
+  This public repo contains the documentation for the private GitHub repo [Tableau Deployment Library](https://github.com/osodevops/aws-terraform-module-tableau). We publish the documentation publicly so it turns up in online searches, but to see the source code, you must be a purchase the module. If you're already purchased this module, please refer to the full deployment guide at: https://github.com/osodevops/aws-terraform-module-tableau/deployment_guide.md. If you're interested in using our re-usable Tableau deployment, contact us at enquires@oso.sh or https://oso.sh/tableau for more information.
 
 # Canonical GitHub repo
-github_repo: osodevops/some-repo
+github_repo: osodevops/aws-terraform-module-tableau-public
 
 # How to use this project
 usage: |-
-  ### Requirements
-  None.
+  Features of this module include:
+    - Tableau server clustering
+    - Deploy HA Green / Blue Tableau server.
+    - Automatic backup and restore from S3.
+    - Multi-dimensional scaling, allowing you to separately scale data and UI management nodes.
+    - Auto healing architecture.
+    - Automatic bootstrapping of custom AMI with user-data.
+    - Ability to customised install with Packer builder.
+    - Web console UI
+    - Admin console UI
 
-  ### Role Variables
-  Some information
-  ```yaml
-    ---
-  ```
-
-# Example usage
-examples: |-
-  Follow this example
-  ```yaml
-      ---
-  ```
 
 related:
-  - name: ""
-    description: ""
-    url: "https://github.com/osodevops/"
+  - name: "OSO CodeBuild"
+    description: "used to to build a repeatable Tableau AMI"
+    url: "https://github.com/osodevops/aws-terraform-module-codebuild-packer"
 
 # References
 references:
-  - name: ""
-    description: ""
-    url: "https://"
+  - name: "33N a NHS startup uses OSO Tableay Deployment Library"
+    description: "UK NHS hospitals more efficient with Tableau visuals"
+    url: "https://oso.sh/case-studies/how-33n-enabled-real-time-nhs-data-visualisation/"
+
+
+  - name: "M1 Finance launched a Production-Ready Tableau Server Solution in 12 Days"
+    description: "OSO supported a US based FinTech to deploy Tableau Server"
+    url: "https://oso.sh/case-studies/how-oso-helped-m1-to-launch-a-production-ready-tableau-server-solution-in-12-days/"
