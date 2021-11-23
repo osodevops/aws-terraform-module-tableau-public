@@ -1,5 +1,5 @@
 module "codebuilder-tableau-s3" {
-  source                  = "git::ssh://git@github.com/osodevops/aws-terraform-module-s3.git"
+  source                  = "git::ssh://git@github.com/osodevops/aws-terraform-module-tableau.git//modules/s3"
   s3_bucket_name          = local.s3_codebuild_storage_name
   s3_bucket_force_destroy = true
   s3_bucket_policy        = ""

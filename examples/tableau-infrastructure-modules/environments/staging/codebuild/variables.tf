@@ -40,18 +40,17 @@ variable "common_tags" {
   type        = map(string)
 }
 
-variable "vpc_class_filter" {
-  description = "Used to filter by 'Class' tag for the VPC we will be building in"
+variable "vpc_name" {
+  description = "Name of the VPC we will deploy into"
   type        = string
-  default     = "tableau-build"
 }
 
-variable "packer_subnet_class_filter" {
-  description = "Used to filter by 'Class' tag for the subnets we will be building in"
+variable "private_subnet_filter" {
+  description = "Tag value used to filter for private subnets we will be building in"
   type        = string
   default     = "tableau-build"
 }
 
 locals {
-  s3_codebuild_storage_name = "${var.account_alias}-${var.aws_region}-tableau-codebuild-resources"
+  s3_codebuild_storage_name = "${var.account_alias}-tableau-ami-resources-${data.aws_caller_identity.current.account_id}-${var.aws_region}"
 }

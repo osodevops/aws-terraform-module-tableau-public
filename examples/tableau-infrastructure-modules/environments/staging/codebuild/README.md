@@ -1,50 +1,71 @@
 # Using codebuild
-This module creates the CodeBuild project that builds the Tableau AMI
+The module will create a CodeBuild project that builds the Tableau AMI, associated resources, and an artefact storage S3 buckets.
+
+When creating new deployments, this module should be executed before any other modules in the OSO Tableau deployment.
 
 The following files must be modified in order to use the Tableau module
-- backend.hcl
-- terraform.tfvars
+- .terraform-version
+- terraform.tf
+- terraform.auto.tfvars
 
-## Configuring backend.hcl
-The following items should be configured before your terraform run
+## Configuring .terraform-version
+This file is advisory and only enforces a version of the Terraform binary when used in conjunction with `tfenv`.
 
-### bucket
-Specify a bucket to store your terraform state
-
-e.g. `bucket = "myaccount-tf-state-eu-west-2"`
-
-### dynamodb_table
-Specify the name of a dynamodb table to store terraform state
-
-e.g. `dynamodb_table = "terraform-state-lock-dynamo"`
-
-### region
-Specify the AWS region you are deploying to
-
-e.g. `region = "eu-west-2"`
-
-### encrypt
-Specify whether the S3 backend state should be encrypted. Usually true
-
-e.g. `encrypt = true`
-
-### key
-Specify the name of the S3 key where the Terraform state will be stored
-
-e.g. `key = "tableau-cluster/terraform.tfstate"`
-
+Populate the file with the version of Terraform you intend to use to inform consumers of the codebase of the version they should use when planning and applying.
 
 ## Configuring terraform.tf
+For Terraform Cloud, configure the backend as follows:
+```terraform
+terraform {
+  backend "remote" {
+    organization = "[your organisation]"
+
+    workspaces {
+      name = "[your workspace name for this project]"
+    }
+  }
+
+  ...
+  
+}
+```
+
+## Configuring terraform.auto.tfvars
+
+### aws_region
+Specify the AWS region you are deploying to
+
+e.g. `aws_region = "eu-west-2"`
+
+### environment
+Specify the name of your Tableau environment
+
+e.g. `environment = "staging"`
+
+### packer_file_location
+Specify which packfile to use during the AMI build. Unless you have created alternative packfiles, this should be "ami/packfiles/amazon.json"
+
+e.g. `packer_file_location = "ami/packfiles/amazon.json"`
 
 ###  account_alias
 Specify a friendly name for your account. This value is generally used to safely name S3 buckets
 
 e.g. `account_alias = "tableau-stage"`
 
-### aws_region
-Specify the AWS region you are deploying to
+### project_name
+Specify the name of the CodeBuild project.
 
-e.g. `aws_region = "eu-west-2"`
+e.g. `project_name = "tableau"`
+
+### encrypt_ami
+Specify whether you want the resulting AMIs to be encrypted with the default AWS encryption key
+
+e.g. `encrypt_ami = true`
+
+### packer_vars_file_location
+Specify the vars file to use during the AMI build. Unless you have created an alternative default.json, this file can be left with its default value.
+
+e.g. `packer_vars_file_location = "ami/environment/default.json"`
 
 ### common_tags
 Specify a map of tags to apply to all resources created by the module
@@ -59,49 +80,19 @@ common_tags = {
 }
 ```
 
-### environment
-Specify the name of your Tableau environment
+### private_subnet_filter
+Specify the pattern that should be used to match the build subnets for CodeBuild. This value should match a private range of subnets.
 
-e.g. `environment = "staging"`
+e.g. `private_subnet_filter = "SubnetPrivate*"`
 
-### encrypt_ami
-Specify whether you want the resulting AMIs to be encrypted with the default AWS encryption key
-
-e.g. `encrypt_ami = true`
-
-### packer_file_location
-Specify which packfile to use during the AMI build. Unless you have added additional json files, this should be "ami/packfiles/amazon.json"
-
-e.g. `packer_file_location = "ami/packfiles/amazon.json"`
-
-### packer_vars_file_location
-Specify the vars file to use during the AMI build. This file is used by Packer to provide software versions, and can be configured to select different drivers or Tableau versions
-
-e.g. `packer_vars_file_location = "ami/environment/default.json"`
-
-### project_name
-Specify the name of the CodeBuild project.
-
-e.g. `project_name = "tableau"`
+**Client specific: For FMG, this string is compared to the tag `aws:cloudformation:logical-id`**
 
 ### source_repository_url
 Specify the location of the source repository
 
 e.g. `source_repository_url = "https://github.com/osodevops/aws-terraform-module-tableau"`
 
+###vpc_name
+Specify the exact name of the VPC to host CodeBuild
 
-# Setting Terraform version
-If you require a specific terraform version, edit the following files and fields
-- `terraform.tf`: edit the field `required_version`
-- `.terraform-verion`: Replace the version number
-
-The module currently supports a minimum of Terraform version `0.12.28`
-
-# Executing terraform
-This is an example of executing the terraform code.
-
-```shell
-> cd codebuild
-> terraform init -backend-config=backend.hcl
-> terraform apply
-```
+e.g. `vpc_name = "tableau-nonprod-vpc"`
