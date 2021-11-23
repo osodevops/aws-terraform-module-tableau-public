@@ -6,6 +6,6 @@ key = "tableau-data-storage/terraform.tfstate"
 region = "<YOUR REGION>"
 
 # Terraform cloud backend configuration
-workspaces { name = "staging-data-storage" }
+workspaces   { name = "staging-data-storage" }
 hostname     = "app.terraform.io"
 organization = "OSO"
