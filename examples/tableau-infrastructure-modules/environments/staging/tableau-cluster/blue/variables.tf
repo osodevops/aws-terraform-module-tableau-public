@@ -1,30 +1,11 @@
+variable "account_alias" {
+  type = string
+}
+
 variable "alb_allowed_ips" {
   description = "List of external IPs that will be allowed access to the Tableau ALB"
   type        = list(string)
   default     = []
-}
-
-variable "common_tags" {
-  description = "Map of tags that will be applied to all infrastructure created by the Tableau module"
-  type        = map(string)
-  default     = {}
-}
-
-variable "alb_tags" {
-  description = "map of tags specifically for the ALB."
-  type = map(string)
-  default = {}
-}
-
-variable "environment" {
-  description = "Name of the environment we are deploying Tableau into. e.g. 'stage'"
-  type        = string
-}
-
-variable "ssh_key_name" {
-  description = "Name of the SSH key used for the Tableau instances"
-  type        = string
-  default     = null
 }
 
 variable "alb_certificate_arn" {
@@ -38,22 +19,21 @@ variable "alb_deletion_protection" {
   default     = false
 }
 
-variable "instance_allowed_ips" {
-  description = "List of customer internal IPs allowed to access the Tableau instances"
-  type        = list(string)
-  default     = []
-}
-
-variable "deployment" {
-  description = "Name of the deployment type: green or blue"
+variable "alb_internal" {
+  description = "Force load-balancers to be internal"
   type        = string
-  default     = ""
+  default     = false
 }
 
-variable "force_destroy" {
-  description = "Boolean that will delete all data from the S3 buckets used as part of the Tableau cluster. This is for teardown only"
-  type        = bool
-  default     = false
+variable "alb_tags" {
+  description = "map of tags specifically for the ALB."
+  type = map(string)
+  default = {}
+}
+
+variable "ami_name" {
+  description = "Provide a name to the AMI that will be used, the string will act as the filter"
+  type        = string
 }
 
 variable "asg_force_delete" {
@@ -62,35 +42,34 @@ variable "asg_force_delete" {
   default = false
 }
 
-variable "protect_from_scale_in" {
-  description = "Do not allow the ASGs to scale in instances. Prevents accidental data-loss"
-  type        = bool
-  default     = true
-}
-
 variable "aws_region" {
   description = "The AWS region the bucket is to be created in"
   type        = string
   default     = "ap-southeast-2"
 }
 
-variable "vpc_name" {
-  description = "Name of the VPC we will deploy into"
+variable "cluster_max_zookeeper_size" {
+  description = "Limit the maximum size of the zookeeper cluster"
+  type        = number
+  default     = 3
+}
+
+variable "common_tags" {
+  description = "Map of tags that will be applied to all infrastructure created by the Tableau module"
+  type        = map(string)
+  default     = {}
+}
+
+variable "create_lambdas" {
+  description = "Boolean to turn on/off creation of lambdas"
+  type        = bool
+  default     = true
+}
+
+variable "deployment" {
+  description = "Name of the deployment type: green or blue"
   type        = string
-}
-
-variable "alb_internal" {
-  description = "Force load-balancers to be internal"
-  type        = string
-  default     = false
-}
-
-variable "account_alias" {
-  type = string
-}
-
-variable "is_private_zone" {
-  type = bool
+  default     = ""
 }
 
 variable "dns_zone" {
@@ -102,43 +81,57 @@ variable "dns_name" {
   default = "tableau"
 }
 
-variable "enable_lambdas" {
+variable "environment" {
+  description = "Name of the environment we are deploying Tableau into. e.g. 'stage'"
+  type        = string
+}
+
+variable "force_destroy" {
+  description = "Boolean that will delete all data from the S3 buckets used as part of the Tableau cluster. This is for teardown only"
+  type        = bool
+  default     = false
+}
+
+variable "frontend_domain" {
+  description = "Domain that will be used by end-users to access the cluster"
+  type        = string
+}
+
+variable "instance_allowed_ips" {
+  description = "List of customer internal IPs allowed to access the Tableau instances"
+  type        = list(string)
+  default     = []
+}
+
+variable "is_private_zone" {
+  type = bool
+}
+
+variable "lambda_enable_automation" {
   description = "Boolean to turn on/off automatic execution of lambdas"
   type        = bool
   default     = false
 }
 
-variable "create_lambdas" {
-  description = "Boolean to turn on/off creation of lambdas"
-  type        = bool
-  default     = true
-}
-
-variable "maximum_zookeeper_size" {
-  description = "Limit the maximum size of the zookeeper cluster"
-  type        = number
-  default     = 3
-}
-
-variable "manage_zookeeper" {
+variable "lambda_manage_zookeeper" {
   description = "Allow the configurator lambda to manage zookeeper"
   type        = bool
   default     = false
 }
 
-variable "manage_new_nodes" {
+variable "lambda_manage_new_nodes" {
   description = "Allow the configurator lambda to manage new cluster nodes"
   type        = bool
   default     = false
 }
 
-variable "manage_terminations" {
+variable "lambda_manage_terminations" {
   description = "Allow the configurator lambda to manage node terminations"
   type        = bool
   default     = false
 }
 
-variable "manage_replicas" {
+variable "lambda_manage_replicas" {
   description = "Allow the configurator lambda to manage repo-replica placement"
   type        = bool
   default     = false
@@ -150,23 +143,54 @@ variable "lambda_execution_schedule" {
   default     = "cron(0/5 * * * ? *)"
 }
 
-variable "frontend_domain" {
-  description = "Domain that will be used by end-users to access the cluster"
-  type        = string
+variable "protect_from_scale_in" {
+  description = "Do not allow the ASGs to scale in instances. Prevents accidental data-loss"
+  type        = bool
+  default     = true
 }
 
-variable "ami_name" {
-  description = "Provide a name to the AMI that will be used, the string will act as the filter"
-  type        = string
+variable "rds_allocated_storage" {
+  description = "What is the minimum allocated storage of the RDS instance in GB"
+  default = "150"
+  type = string
 }
 
-variable "use_external_database" {
+variable "rds_backup_window" {
+  default = "03:00-06:00"
+  type = string
+}
+
+variable "rds_backup_retention_period" {
+  description = "Set the backup retention period for the RDS instance"
+  default = "7"
+  type = string
+}
+
+variable "rds_create_database" {
   description = "Would you like Tableau to use an external database?"
   default     = false
   type        = bool
 }
 
-variable "rds_engnie" {
+variable "rds_create_monitoring_role" {
+  description = "Do you want RDS to create the monitoring role automatically?"
+  default     = true
+  type        = bool
+}
+
+variable "rds_db_name" {
+  description = "Do you want to create an initial database on the RDS instance?"
+  default = ""
+  type = string
+}
+
+variable "rds_deletion_protection" {
+  description = "Set if you want delete protection for your RDS instance"
+  default = false
+  type    = bool
+}
+
+variable "rds_engine" {
   description = "Set the engine for RDS to use"
   default = "postgres"
   type = string
@@ -184,39 +208,15 @@ variable "rds_family" {
   type = string
 }
 
-variable "rds_major_engine_version" {
-  description = "Set the major version of the database"
-  default = "12"
-  type = string
-}
-
 variable "rds_instance_class" {
   description = "Set the RDS instance size"
   default = "db.t3.large"
   type = string
 }
 
-variable "rds_allocated_storage" {
-  description = "What is the minimum allocated storage of the RDS instance in GB"
-  default = "150"
-  type = string
-}
-
-variable "rds_max_allocated_storage" {
-  description = "What is the maximum allocated storage of the RDS instance in GB"
-  default = "1500"
-  type = string
-}
-
-variable "rds_storage_encrypted" {
-  description = "Do you want to encrypt the RDS disk storage"
-  default = true
-  type = bool
-}
-
-variable "rds_db_name" {
-  description = "Do you want to create an initial database on the RDS instance?"
-  default = ""
+variable "rds_major_engine_version" {
+  description = "Set the major version of the database"
+  default = "12"
   type = string
 }
 
@@ -226,45 +226,10 @@ variable "rds_maintenance_window" {
   type = string
 }
 
-variable "rds_backup_window" {
-  default = "03:00-06:00"
+variable "rds_max_allocated_storage" {
+  description = "What is the maximum allocated storage of the RDS instance in GB"
+  default = "1500"
   type = string
-}
-
-variable "rds_backup_retention_period" {
-  description = "Set the backup retention period for the RDS instance"
-  default = "7"
-  type = string
-}
-
-variable "rds_skip_final_snapshot" {
-  description = "Do you wish to createa final snapshot for RDS"
-  default = true
-  type    = bool
-}
-
-variable "rds_deletion_protection" {
-  description = "Set if you want delete protection for your RDS instance"
-  default = false
-  type    = bool
-}
-
-variable "rds_performance_insights_enabled" {
-  description = "Enable Performance Insights on the RDS instance"
-  default = true
-  type    = bool
-}
-
-variable "rds_performance_insights_retention_period" {
-  description = "Set the retention period for RDS performance insights"
-  default = "7"
-  type = string
-}
-
-variable "rds_create_monitoring_role" {
-  description = "Do you want RDS to create the monitoring role automatically?"
-  default     = true
-  type        = bool
 }
 
 variable "rds_monitoring_interval" {
@@ -285,7 +250,31 @@ variable "rds_multi_az" {
   type        = bool
 }
 
-variable "enable_sf_build_automation" {
+variable "rds_performance_insights_enabled" {
+  description = "Enable Performance Insights on the RDS instance"
+  default = true
+  type    = bool
+}
+
+variable "rds_performance_insights_retention_period" {
+  description = "Set the retention period for RDS performance insights"
+  default = "7"
+  type = string
+}
+
+variable "rds_skip_final_snapshot" {
+  description = "Do you wish to createa final snapshot for RDS"
+  default = true
+  type    = bool
+}
+
+variable "rds_storage_encrypted" {
+  description = "Do you want to encrypt the RDS disk storage"
+  default = true
+  type = bool
+}
+
+variable "sf_build_enable_automation" {
   description = "Enable automatic runs of the Step Function cluster build automation"
   default     = false
   type        = bool
@@ -297,7 +286,7 @@ variable "sf_build_timer_schedule" {
   default     = "cron(0/5 * * * ? *)"
 }
 
-variable "enable_sf_recovery_automation" {
+variable "sf_recovery_enable_automation" {
   description = "Enable automatic runs of the Step Function cluster recovery automation"
   default     = false
   type        = bool
@@ -307,4 +296,15 @@ variable "sf_recovery_timer_schedule" {
   description = "How often the cluster recovery automation runs"
   type        = string
   default     = "cron(0/10 * * * ? *)"
+}
+
+variable "ssh_key_name" {
+  description = "Name of the SSH key used for the Tableau instances"
+  type        = string
+  default     = null
+}
+
+variable "vpc_name" {
+  description = "Name of the VPC we will deploy into"
+  type        = string
 }

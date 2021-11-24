@@ -85,8 +85,6 @@ Specify the pattern that should be used to match the build subnets for CodeBuild
 
 e.g. `private_subnet_filter = "SubnetPrivate*"`
 
-**Client specific: For FMG, this string is compared to the tag `aws:cloudformation:logical-id`**
-
 ### source_repository_url
 Specify the location of the source repository
 

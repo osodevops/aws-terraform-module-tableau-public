@@ -31,7 +31,7 @@ frontend_domain = "<DOMAIN OF YOUR DEPLOYMENT FRONTEND>"
 ami_name        = "tableau-*"
 
 # RDS configuration
-use_external_database       = "true"
+rds_create_database       = "true"
 rds_instance_class          = "db.t3.large"
 rds_allocated_storage       = "150"
 rds_max_allocated_storage   = "1500"
@@ -49,22 +49,22 @@ rds_performance_insights_retention_period = "7"
 
 # Cluster automation controls
 create_lambdas         = true     # Whether to create automation lambdas in the environment
-maximum_zookeeper_size = 5        # Maximum size the coordination service will be configured to
+cluster_max_zookeeper_size = 5        # Maximum size the coordination service will be configured to
 # Example execution schedule: update-window example: configure services between 2 and 4am every friday
 # *_schedule = "cron(0/5 2,3 ? * 6 *)"
 
 # Legacy cluster controls
-enable_lambdas            = false    # Enable the legacy lambda cluster automation
-manage_new_nodes          = true     # Should the automation configure new nodes
-manage_terminations       = true     # Should the automation repair dead cluster nodes
-manage_zookeeper          = true     # Should the automation configure zookeeper
-manage_replicas           = false    # Should the automation distribute internal replicas across the cluster
+lambda_enable_automation            = false    # Enable the legacy lambda cluster automation
+lambda_manage_new_nodes          = true     # Should the automation configure new nodes
+lambda_manage_terminations       = true     # Should the automation repair dead cluster nodes
+lambda_manage_zookeeper          = true     # Should the automation configure zookeeper
+lambda_manage_replicas           = false    # Should the automation distribute internal replicas across the cluster
 lambda_execution_schedule = "cron(0/5 * * * ? *)"   # How often the automation lambda checks the cluster state
 
 # Step Function cluster controls
-enable_sf_build_automation  = true                    # Enable automatic runs of the Step Function cluster build automation
+sf_build_enable_automation  = true                    # Enable automatic runs of the Step Function cluster build automation
 sf_build_timer_schedule = "cron(0/5 * * * ? *)"       # How often the cluster build automation runs
-enable_sf_recovery_automation = true                  # Enable automatic runs of the Step Function cluster recovery automation
+sf_recovery_enable_automation = true                  # Enable automatic runs of the Step Function cluster recovery automation
 sf_recovery_timer_schedule = "cron(0/10 * * * ? *)"   # How often the cluster recovery automation runs
 
 
