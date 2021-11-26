@@ -11,6 +11,7 @@ module "codebuilder" {
   instance_type              = var.instance_type
   packer_file_location       = var.packer_file_location
   project_name               = var.project_name
+  s3_resource_arn            = module.codebuilder-tableau-s3.s3_arn
   source_repository_url      = var.source_repository_url
   vpc_name                   = var.vpc_name
   shared_ami_users           = var.shared_ami_users
