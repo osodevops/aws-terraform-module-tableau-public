@@ -18,57 +18,49 @@ alb_certificate_arn = "<YOUR_ACM_CERTIFICATE_ARN>"
 alb_internal        = true
 
 # ASG configuration
+alb_tags = { "<AN ADDITIONAL TAG NAME>" : "<VALUE>" }
+ami_name = "tableau-*"
 common_tags = {
   Application = "Tableau"
   Element     = "Tableau Server"
   Purpose     = "Clustered deployment of Tableau server"
   Alarms      = "true"
   Tool        = "Terraform"
+  Deployment  = "Green"
 }
-
-alb_tags = {"<AN ADDITIONAL TAG NAME>": "<VALUE>"}
 frontend_domain = "<DOMAIN OF YOUR DEPLOYMENT FRONTEND>"
-ami_name        = "tableau-*"
 
 # RDS configuration
-rds_create_database       = "true"
-rds_instance_class          = "db.t3.large"
-rds_allocated_storage       = "150"
-rds_max_allocated_storage   = "1500"
-rds_storage_encrypted       = "true"
-rds_multi_az                = "true"
-rds_maintenance_window      = ""
-rds_backup_window           = ""
-rds_backup_retention_period = "7"
-rds_skip_final_snapshot     = "true"
-rds_deletion_protection     = "false"
-rds_create_monitoring_role  = "true"
-rds_monitoring_role_name    = "tableau-nonprod-green-monitor-role"
-rds_performance_insights_enabled          = "true"
-rds_performance_insights_retention_period = "7"
+rds_create_database                       = "<DO YOU WANT TO DEPLOY TO AN EXTERNAL RDS INSTANCE>"
+rds_instance_class                        = "<DB INSTANCE TYPE OF THE RDS DEPLOYMENT>"
+rds_allocated_storage                     = "<SIZE IN GB OF RDS STORAGE>"
+rds_max_allocated_storage                 = "<SIZE IN GB OF THE MAXIMUM POSSIBLE ALLOCATED DISK SIZE>"
+rds_storage_encrypted                     = "<WHETHER TO ENCRYPT RDS STORAGE AT REST>"
+rds_multi_az                              = "<SHOULD RDS BE MULTI-AZ>"
+rds_maintenance_window                    = "<DEFINE A MAINTENANCE WINDOW FOR AUTOMATED OS UPDATES>"
+rds_backup_window                         = "<DEFINE A BACKUP WINDOW FOR AUTOMATIC RDS BACKUPS>"
+rds_backup_retention_period               = "<DAYS TO KEEP AUTOMATED BACKUPS>"
+rds_skip_final_snapshot                   = "<CHOOSE WHETHER TO CREATE A FINAL SNAPSHOT ON TEARDOWN>"
+rds_deletion_protection                   = "<WHETHER TO PREVENT DESTRUCTION OF THE RDS INSTANCE>"
+rds_create_monitoring_role                = "<WHETHER TO CREATE A MONITORING ROLE FOR DS>"
+rds_monitoring_role_name                  = "<NAME OF THE ROLE TO CREATE>"
+rds_monitoring_interval                   = "<GRANULARITY IN SECONDS OF MONITORING>"
+rds_performance_insights_enabled          = "<WHETHER TO ENABLE RDS PERFORMANCE INSIGHTS>"
+rds_performance_insights_retention_period = "<TIME IN DAYS TO KEEP PERFORMANCE INSIGHTS>"
 
 # Cluster automation controls
-create_lambdas         = true     # Whether to create automation lambdas in the environment
-cluster_max_zookeeper_size = 5        # Maximum size the coordination service will be configured to
+create_lambdas             = "<WHETHER TO CREATE AUTOMATION LAMBDAS IN THE ENVIRONMENT>"
+cluster_max_zookeeper_size = "<MAXIMUM SIZE THE COORDINATION SERVICE WILL BE CONFIGURED TO>"
 # Example execution schedule: update-window example: configure services between 2 and 4am every friday
 # *_schedule = "cron(0/5 2,3 ? * 6 *)"
 
-# Legacy cluster controls
-lambda_enable_automation            = false    # Enable the legacy lambda cluster automation
-lambda_manage_new_nodes          = true     # Should the automation configure new nodes
-lambda_manage_terminations       = true     # Should the automation repair dead cluster nodes
-lambda_manage_zookeeper          = true     # Should the automation configure zookeeper
-lambda_manage_replicas           = false    # Should the automation distribute internal replicas across the cluster
-lambda_execution_schedule = "cron(0/5 * * * ? *)"   # How often the automation lambda checks the cluster state
-
 # Step Function cluster controls
-sf_build_enable_automation  = true                    # Enable automatic runs of the Step Function cluster build automation
-sf_build_timer_schedule = "cron(0/5 * * * ? *)"       # How often the cluster build automation runs
-sf_recovery_enable_automation = true                  # Enable automatic runs of the Step Function cluster recovery automation
-sf_recovery_timer_schedule = "cron(0/10 * * * ? *)"   # How often the cluster recovery automation runs
+sf_build_enable_automation    = "<ENABLE AUTOMATIC RUNS OF THE STEP FUNCTION CLUSTER BUILD AUTOMATION>"
+sf_build_timer_schedule       = "cron(0/5 * * * ? *)" # How often the cluster build automation runs
+sf_recovery_enable_automation = "<ENABLE AUTOMATIC RUNS OF THE STEP FUNCTION CLUSTER RECOVERY AUTOMATION>"
+sf_recovery_timer_schedule    = "cron(0/10 * * * ? *)" # How often the cluster recovery automation runs
 
-
-# Trickles down to force destroy S3 buckets
-force_destroy = true
-asg_force_delete = true
-protect_from_scale_in = false
+# Protections
+force_destroy         = "<WHETHER TO ALLOW S3 BUCKETS TO BE DESTROYED EVEN WHEN FULL>"
+asg_force_delete      = "<WHETHER TO FORCE ASG TO IGNORE DELETION PROTECTION ON DESTROY>"
+protect_from_scale_in = "<WHETHER TO PROTECT ASG INSTANCES FROM SCALING IN>"
