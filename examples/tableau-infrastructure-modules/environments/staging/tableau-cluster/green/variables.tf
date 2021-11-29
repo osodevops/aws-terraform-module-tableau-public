@@ -1,5 +1,6 @@
 variable "account_alias" {
-  type = string
+  description = "Friendly name of your account"
+  type        = string
 }
 
 variable "alb_allowed_ips" {
@@ -36,11 +37,6 @@ variable "ami_name" {
   type        = string
 }
 
-variable "asg_desired_capacity" {
-  type    = number
-  default = 1
-}
-
 variable "asg_force_delete" {
   description = "Forces deletion of the ASGs"
   type        = bool
@@ -53,16 +49,22 @@ variable "aws_region" {
   default     = "eu-west-2"
 }
 
+variable "cluster_max_zookeeper_size" {
+  description = "Limit the maximum size of the zookeeper cluster"
+  type        = number
+  default     = 3
+}
+
 variable "common_tags" {
   description = "Map of tags that will be applied to all infrastructure created by the Tableau module"
   type        = map(string)
   default     = {}
 }
 
-variable "data_volume_size" {
-  description = "Size of the Tableau EBS data volume in GB"
-  type        = string
-  default     = "100"
+variable "create_lambdas" {
+  description = "Boolean to turn on/off creation of lambdas"
+  type        = bool
+  default     = true
 }
 
 variable "deployment" {
@@ -71,13 +73,16 @@ variable "deployment" {
   default     = ""
 }
 
-variable "dns_zone" {
-  type = string
+variable "dns_name" {
+  description = "Name to be appended to the route53 domain for this ALB"
+  type        = string
+  default     = "tableau"
 }
 
-variable "dns_name" {
-  type    = string
-  default = "tableau"
+variable "dns_zone" {
+  description = "The zone we are configuring e.g. myplace.cloud"
+  type        = string
+  default     = "cloud"
 }
 
 variable "environment" {
@@ -102,14 +107,46 @@ variable "instance_allowed_ips" {
   default     = []
 }
 
-variable "instance_type" {
-  description = "Instance type used for the Tableau servers"
-  type        = string
-  default     = "m5.4xlarge"
+variable "is_private_zone" {
+  description = "Set according to if your hosted zone is public or private"
+  type        = bool
+  default     = false
 }
 
-variable "is_private_zone" {
-  type = bool
+variable "lambda_enable_automation" {
+  description = "Boolean to turn on/off automatic execution of lambdas"
+  type        = bool
+  default     = false
+}
+
+variable "lambda_manage_zookeeper" {
+  description = "Allow the configurator lambda to manage zookeeper"
+  type        = bool
+  default     = false
+}
+
+variable "lambda_manage_new_nodes" {
+  description = "Allow the configurator lambda to manage new cluster nodes"
+  type        = bool
+  default     = false
+}
+
+variable "lambda_manage_terminations" {
+  description = "Allow the configurator lambda to manage node terminations"
+  type        = bool
+  default     = false
+}
+
+variable "lambda_manage_replicas" {
+  description = "Allow the configurator lambda to manage repo-replica placement"
+  type        = bool
+  default     = false
+}
+
+variable "lambda_execution_schedule" {
+  description = "Determines when the configuration lambda is executed."
+  type        = string
+  default     = "cron(0/5 * * * ? *)"
 }
 
 variable "protect_from_scale_in" {
@@ -243,10 +280,28 @@ variable "rds_storage_encrypted" {
   type        = bool
 }
 
-variable "root_disk_size" {
-  description = "Size of the Tableau root partition in GB"
+variable "sf_build_enable_automation" {
+  description = "Enable automatic runs of the Step Function cluster build automation"
+  default     = false
+  type        = bool
+}
+
+variable "sf_build_timer_schedule" {
+  description = "How often the cluster build automation runs"
   type        = string
-  default     = "100"
+  default     = "cron(0/5 * * * ? *)"
+}
+
+variable "sf_recovery_enable_automation" {
+  description = "Enable automatic runs of the Step Function cluster recovery automation"
+  default     = false
+  type        = bool
+}
+
+variable "sf_recovery_timer_schedule" {
+  description = "How often the cluster recovery automation runs"
+  type        = string
+  default     = "cron(0/10 * * * ? *)"
 }
 
 variable "ssh_key_name" {

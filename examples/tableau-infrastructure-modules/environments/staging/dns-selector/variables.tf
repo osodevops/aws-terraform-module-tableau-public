@@ -19,13 +19,20 @@ variable "suffix" {
   default     = "green"
 }
 
-variable "dns_zone" {
-  type    = string
-  default = ""
+variable "dns_zone_public" {
+  description = "Public zone to update with frontend tableau entry"
+  type        = string
+  default     = ""
 }
 
-variable "is_private_zone" {
-  description = "Specify if your hosted zone is public or private"
+variable "dns_zone_private" {
+  description = "Private zone to update with frontend tableau entry"
   type        = string
+  default     = ""
+}
+
+variable "generate_rds_dns_entry" {
+  description = "If you are using an external RDS instance, set this value to true"
   default     = false
+  type        = bool
 }

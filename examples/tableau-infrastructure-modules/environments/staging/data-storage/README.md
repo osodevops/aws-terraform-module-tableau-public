@@ -1,9 +1,7 @@
-# Using dns-selector
-This module creates the "live" DNS entry for a blue/green Tableau deployment and aliases it to the current "live" load-balancer.
+# Using data-storage
+This module creates data-storage S3 buckets and acts as a general data layer in the Terraform deployment
 
-The parameter "suffix" determines which deployment is aliased to the DNS entry.
-
-When creating new deployments, this module should be executed last.
+When creating new deployments, this module should be executed after codebuild and before tableau or tableau-cluster.
 
 The following files must be modified in order to use the Tableau module
 - .terraform-version
@@ -34,27 +32,6 @@ terraform {
 
 ## Configuring terraform.auto.tfvars
 
-### aws_region
-Specify the AWS region you are deploying to
-
-e.g. `aws_region = "eu-west-2"`
-
-
-### dns_zone_private
-Specify the pre-existing private zone where the `tableau` hostname will be configured.
-
-e.g. `dns_zone_private = "test.osodevops.io"`
-
-### dns_zone_public
-Specify the pre-existing public zone where the `tableau` hostname will be configured.
-
-e.g. `dns_zone_public = "test.osodevops.io"`
-
-### environment
-Specify the name of your Tableau environment
-
-e.g. `environment = "staging"`
-
 ### common_tags
 Specify a map of tags to apply to all resources created by the module
 
@@ -68,7 +45,18 @@ common_tags = {
 }
 ```
 
-### suffix
-Specify name of the deployment the `tableau` hostname should attached to.
+###  account_alias
+Specify a friendly name for your account. This value is used to name S3 buckets
 
-e.g. `suffix = "blue"`
+e.g. `account_alias = "myaccount"`
+
+### aws_region
+Specify the AWS region you are deploying to
+
+e.g. `aws_region = "eu-west-2"`
+
+### environment
+Specify the name of your Tableau environment
+
+e.g. `environment = "staging"`
+
