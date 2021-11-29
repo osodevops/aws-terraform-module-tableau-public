@@ -8,7 +8,7 @@ common_tags = {
   Purpose     = "Swap between blue and green deployments"
 
 }
-environment = "<YOUR_ENVIRONMENT_NAME>"
+environment            = "<YOUR_ENVIRONMENT_NAME>"
 generate_rds_dns_entry = "true"
 
 # blue/green selection

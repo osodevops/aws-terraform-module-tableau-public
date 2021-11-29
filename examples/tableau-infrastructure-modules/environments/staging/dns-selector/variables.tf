@@ -33,6 +33,6 @@ variable "dns_zone_private" {
 
 variable "generate_rds_dns_entry" {
   description = "If you are using an external RDS instance, set this value to true"
-  default = false
-  type = bool
+  default     = false
+  type        = bool
 }

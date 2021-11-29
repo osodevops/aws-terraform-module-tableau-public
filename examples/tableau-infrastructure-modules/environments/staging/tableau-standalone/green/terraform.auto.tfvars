@@ -15,11 +15,11 @@ is_private_zone = "<IS_YOUR_DNS_ZONE_PRIVATE>"
 # ALB configuration
 alb_allowed_ips     = ["<YOUR_CIDR_BLOCKS_ALLOWED_TO_LOAD_BALANCER>"]
 alb_certificate_arn = "<YOUR_ACM_CERTIFICATE_ARN>"
-alb_internal        = true
+alb_internal        = "<IS THE LOAD BALANCER INTERNALLY OR EXTERNALLY FACING>"
 
 # ASG configuration
-alb_tags = {"<AN ADDITIONAL TAG NAME>": "<VALUE>"}
-ami_name        = "tableau-*"
+alb_tags             = { "<AN ADDITIONAL TAG NAME>" : "<VALUE>" }
+ami_name             = "tableau-*"
 asg_desired_capacity = 0
 common_tags = {
   Application = "Tableau"
@@ -29,29 +29,29 @@ common_tags = {
   Tool        = "Terraform"
   Deployment  = "Green"
 }
-frontend_domain = "<DOMAIN OF YOUR DEPLOYMENT FRONTEND>"
-data_volume_size     = "100"
-root_disk_size       = "150"
-instance_type        = "m5.4xlarge"
+frontend_domain  = "<DOMAIN OF YOUR DEPLOYMENT FRONTEND>"
+data_volume_size = "<SIZE IN GB OF THE TABLEAU DATA VOLUME>"
+root_disk_size   = "<SIZE IN GB OF THE TABLEAU ROOT OS VOLUME>"
+instance_type    = "<INSTANCE TYPE OF TABLEAU>"
 
 # RDS configuration
-rds_create_database       = "true"
-rds_instance_class          = "db.t3.large"
-rds_allocated_storage       = "150"
-rds_max_allocated_storage   = "1500"
-rds_storage_encrypted       = "true"
-rds_multi_az                = "true"
-rds_maintenance_window      = ""
-rds_backup_window           = ""
-rds_backup_retention_period = "7"
-rds_skip_final_snapshot     = "true"
-rds_deletion_protection     = "false"
-rds_create_monitoring_role  = "true"
-rds_monitoring_role_name    = "tableau-nonprod-green-monitor-role"
-rds_performance_insights_enabled          = "true"
-rds_performance_insights_retention_period = "7"
+rds_create_database                       = "<DO YOU WANT TO DEPLOY TO AN EXTERNAL RDS INSTANCE>"
+rds_instance_class                        = "<DB INSTANCE TYPE OF THE RDS DEPLOYMENT>"
+rds_allocated_storage                     = "<SIZE IN GB OF RDS STORAGE>"
+rds_max_allocated_storage                 = "<SIZE IN GB OF THE MAXIMUM POSSIBLE ALLOCATED DISK SIZE>"
+rds_storage_encrypted                     = "<WHETHER TO ENCRYPT RDS STORAGE AT REST>"
+rds_multi_az                              = "<SHOULD RDS BE MULTI-AZ>"
+rds_maintenance_window                    = "<DEFINE A MAINTENANCE WINDOW FOR AUTOMATED OS UPDATES>"
+rds_backup_window                         = "<DEFINE A BACKUP WINDOW FOR AUTOMATIC RDS BACKUPS>"
+rds_backup_retention_period               = "<DAYS TO KEEP AUTOMATED BACKUPS>"
+rds_skip_final_snapshot                   = "<CHOOSE WHETHER TO CREATE A FINAL SNAPSHOT ON TEARDOWN>"
+rds_deletion_protection                   = "<WHETHER TO PREVENT DESTRUCTION OF THE RDS INSTANCE>"
+rds_create_monitoring_role                = "<WHETHER TO CREATE A MONITORING ROLE FOR DS>"
+rds_monitoring_role_name                  = "<NAME OF THE ROLE TO CREATE>"
+rds_performance_insights_enabled          = "<WHETHER TO ENABLE RDS PERFORMANCE INSIGHTS>"
+rds_performance_insights_retention_period = "<TIME IN DAYS TO KEEP PERFORMANCE INSIGHTS>"
 
-# Trickles down to force destroy S3 buckets
-force_destroy = true
-asg_force_delete = true
-protect_from_scale_in = false
+# Protections
+force_destroy         = "<WHETHER TO ALLOW S3 BUCKETS TO BE DESTROYED EVEN WHEN FULL>"
+asg_force_delete      = "<WHETHER TO FORCE ASG TO IGNORE DELETION PROTECTION ON DESTROY>"
+protect_from_scale_in = "<WHETHER TO PROTECT ASG INSTANCES FROM SCALING IN>"

@@ -1,9 +1,10 @@
 terraform {
-  # Partial configuration for the backend: https://www.terraform.io/docs/backends/config.html
+  backend "remote" {}
   backend "s3" {}
+
   required_providers {
     aws = {
-      version = ">= 3.19"
+      version = "~> 3"
     }
   }
 }
