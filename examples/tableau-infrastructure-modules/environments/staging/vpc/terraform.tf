@@ -1,5 +1,5 @@
 terraform {
-  #  backend "remote" {}
+  backend "remote" {}
   backend "s3" {}
 
   required_providers {
