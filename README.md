@@ -51,9 +51,9 @@ Features of this module include:
 
 
 
+## Project archived
 
-
-
+This module has been archived. Please see: https://tableauondemand.io/ if you are interested in a Tableau standalone and/or cluster installation.
 
 
 ## Related Projects
