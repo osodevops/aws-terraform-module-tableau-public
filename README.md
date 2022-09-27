@@ -27,6 +27,8 @@
 
 
 -->
+This module has been archived. Please see: [Tableau on demand](https://tableauondemand.io) if you're interested in a Tableau standalone and/or cluster installation.
+
 This public repo contains the documentation for the private GitHub repo [Tableau Deployment Library](https://github.com/osodevops/aws-terraform-module-tableau). We publish the documentation publicly so it turns up in online searches, but to see the source code, you must be a purchase the module. If you're already purchased this module, please refer to the full deployment guide at: https://github.com/osodevops/aws-terraform-module-tableau/deployment_guide.md. If you're interested in using our re-usable Tableau deployment, contact us at enquires@oso.sh or https://oso.sh/tableau for more information.
 
 ---
@@ -51,9 +53,9 @@ Features of this module include:
 
 
 
-## Project archived
 
-This module has been archived. Please see: https://tableauondemand.io/ if you are interested in a Tableau standalone and/or cluster installation.
+
+
 
 
 ## Related Projects
